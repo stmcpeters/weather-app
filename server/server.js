@@ -15,7 +15,7 @@ app.get('/', (req, res) => {
     res.json({ message: 'Hola, from My template ExpressJS with React-Vite' });
 });
 
-// create the get request for students in the endpoint '/api/students'
+// create the get request for users from database
 app.get('/api/users', async (req, res) => {
     try {
         const { rows: users } = await db.query('SELECT * FROM users');
@@ -24,6 +24,29 @@ app.get('/api/users', async (req, res) => {
         return res.status(400).json({ e });
     }
 });
+
+// fetches weather data from API
+app.get('/weather', async (req, res) => {
+    //sets city equal to requested city entered
+      const city = req.query.city || 'San Francisco'; //sets default city displayed when page loads to SF
+    try {
+      // setting variable for weather API url
+        const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.WEATHER_API_KEY}&units=imperial`;
+      // fetching weather data from API
+        const response = await fetch(url);
+      // handles and displays HTTP errors
+        if(!response.ok) {
+        console.error(`Receiving HTTP error status: ${response.status}`);
+      }
+      // parses fetched response into json format
+        const data = await response.json();
+      // sends json data as a response to client side
+        res.json(data);
+      // catches errors and displays errors fetching data from API
+    } catch (error) {
+      console.error('There was an error fetching weather data: ', error);
+    }
+  })
 
 // // create the POST request
 // app.post('/api/students', async (req, res) => {
@@ -86,5 +109,5 @@ app.get('/api/users', async (req, res) => {
 
 // console.log that your server is up and running
 app.listen(PORT, () => {
-    console.log(`Hola, Server listening on ${PORT}`);
+    console.log(`Hola, Server listening on http://localhost:${PORT}`);
 });
