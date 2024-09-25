@@ -12,7 +12,7 @@ function Weather() {
   // starts initial data fetch from API on page load
     useEffect(() => {
     // fetches API data from backend port where API is connected
-      fetch('http://localhost:3000/weather')
+      fetch('http://localhost:8080/weather')
         // takes the response and parses into json format
           .then((res) => res.json())
         // uses incoming weather data to update state of weather data
