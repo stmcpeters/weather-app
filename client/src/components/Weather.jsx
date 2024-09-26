@@ -99,7 +99,7 @@ function Weather() {
             {/* displays temp from API */}
               <p>Temperature: {Math.round(weatherData.main.temp)} &deg;F</p>
             {/* displays description from API */}
-              <p>Description: {weatherData.weather.description}</p>
+              <p>Description: {weatherData.weather[0].description}</p>
             {/* displays humidity from API */}
               <p>Humidity: {weatherData.main.humidity}%</p>
             {/* displays wind speed from API */}
