@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 // applies CSS styling to page
 import '/Users/beigeh0ney/Desktop/Techtonica/Techtonica-assignments/new-weather-app/client/src/App.css'
+// imports card css from bootstrap
 import Card from 'react-bootstrap/Card'
 
 function Weather() {
@@ -49,7 +50,7 @@ function Weather() {
     const fetchWeather = async () => {
       try {
         // uses backend port to connect to API and uses inputted city name
-          const response = await fetch(`http://localhost:3000/weather?city=${city}`);
+          const response = await fetch(`http://localhost:8080/weather?city=${city}`);
         // waits for response and parses to json format
           const data = await response.json();
         // updates state of weather data using data from API
@@ -98,20 +99,17 @@ function Weather() {
                 {weatherData.name}
               </h2>
             {/* displays temp from API */}
-              <p>Temperature: {weatherData.main.temp} &deg;F</p>
+              <p>Temperature: {Math.round(weatherData.main.temp)} &deg;F</p>
             {/* displays description from API */}
-              <p>Description: {weatherData.weather[0].description}</p>
-            {/* displays feels like from API */}
-              <p>Feels like: {weatherData.main.feels_like} &deg;F</p>
+              <p>Description: {weatherData.weather.description}</p>
             {/* displays humidity from API */}
               <p>Humidity: {weatherData.main.humidity}%</p>
-            {/* displays pressure from API */}
-              <p>Pressure: {weatherData.main.pressure} hPa</p>
             {/* displays wind speed from API */}
-              <p>Wind Speed: {weatherData.wind.speed} mph</p>
+              <p>Wind Speed: {Math.round(weatherData.wind.speed)} mph</p>
               </Card.Title>
             </Card.Body>
           </Card>
+          
         ) : (
           // loading message to display when fetching data from API
             <p>Fetching weather...</p>
