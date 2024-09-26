@@ -17,6 +17,7 @@ const Dropdown = () => {
     try {
       const response = await fetch('api/users');
       const data = await response.json();
+      // maps thru users and sets each as an option for dropdown
       setOptions(data.map(user => ({
         label: user.username,
         value: user.userid
@@ -44,6 +45,7 @@ const Dropdown = () => {
     {/* renders dropdown menu when dropdown isOpen is true */}
     {isOpen && (
       <ul className='dropdown-menu'>
+        {/* populates each username as an option to be clicked */}
         {options.map((option) => (
           <li key={option.value}>
             <a href='#' onClick={() => selectOption(option.value)}>
