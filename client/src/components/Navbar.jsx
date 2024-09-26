@@ -1,34 +1,28 @@
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
-import Logo from '../assets/BlueTechtonicaWord.png'
+import Logo from '../assets/logo.png'
 
 
 function MyNavBar(props) {
 
   return (
     <>
-    <Navbar bg="dark" variant="dark" sticky="top">
+    <Navbar className="navbar navbar-dark bg-dark">
       <Container>
-        <Navbar.Brand href="/">
+        <a className="navbar-brand" href="#">
         <img
               src={Logo}
               height="30"
               className="d-lg-inline-block"
-              alt="React Bootstrap logo"
+              alt="Weather App Logo"
             />
-        </Navbar.Brand>
-        <Nav.Link >Your Link</Nav.Link>
-        <Navbar.Toggle />
-        <Navbar.Collapse className="justify-content-end">
-          <Navbar.Text>
-            Signed in as: <a href="#login">Cristina Rodriguez</a>
-          </Navbar.Text>
-        </Navbar.Collapse>
+        </a>
       </Container>
     </Navbar>
     </>
   );
 };
+
 
 export default MyNavBar;
