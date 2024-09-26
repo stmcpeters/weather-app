@@ -12,13 +12,12 @@
 }
 
 a.navbar-brand {
-  margin-inline-start: 5em;
+  margin-inline-start: -5em;
 }
 
-.nav-link {
-  color: white !important;
-  margin-left: 5em;
-} */
+#root > div > nav {
+  margin-bottom: 10px;
+}
 
 /* form {
   flex-direction: column;
