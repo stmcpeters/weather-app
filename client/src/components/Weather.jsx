@@ -33,7 +33,7 @@ function Weather() {
     }
   }
 
-  // handles what to do when submit button is clicked
+  // handles what to do when submit button is clicked to submit a city name
     const handleSubmit = (event) => {
       // prevents default submission behaviors like refreshing/redirecting page
       event.preventDefault();
