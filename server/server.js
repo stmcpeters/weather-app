@@ -15,16 +15,6 @@ app.get('/', (req, res) => {
     res.json({ message: 'Hola, from My template ExpressJS with React-Vite' });
 });
 
-// create the get request for users from database
-app.get('/api/users', async (req, res) => {
-    try {
-        const { rows: users } = await db.query('SELECT * FROM users');
-        res.send(users);
-    } catch (e) {
-        return res.status(400).json({ e });
-    }
-});
-
 // fetches weather data from API
 app.get('/weather', async (req, res) => {
     //sets city equal to requested city entered
@@ -48,28 +38,39 @@ app.get('/weather', async (req, res) => {
     }
   })
 
-// // create the POST request
-// app.post('/api/students', async (req, res) => {
-//     try {
-//         const newStudent = {
-//             firstname: req.body.firstname,
-//             lastname: req.body.lastname,
-//             iscurrent: req.body.iscurrent
-//         };
-//         //console.log([newStudent.firstname, newStudent.lastname, newStudent.iscurrent]);
-//         const result = await db.query(
-//             'INSERT INTO students(firstname, lastname, is_current) VALUES($1, $2, $3) RETURNING *',
-//             [newStudent.firstname, newStudent.lastname, newStudent.iscurrent],
-//         );
-//         console.log(result.rows[0]);
-//         res.json(result.rows[0]);
 
-//     } catch (e) {
-//         console.log(e);
-//         return res.status(400).json({ e });
-//     }
+  // GET request to retrieve all users from database
+app.get('/api/users', async (req, res) => {
+    try {
+        const { rows: users } = await db.query('SELECT * FROM users');
+        res.send(users);
+    } catch (e) {
+        return res.status(400).json({ e });
+    }
+});
 
-// });
+// POST request create new user
+app.post('/api/users', async (req, res) => {
+    try {
+        const newUser = {
+            username: req.body.username,
+            favorite_city: req.body.favorite_city,
+            email: req.body.email
+        };
+             //console.log([newUser.username, newUser.favorite_city, newUser.email]);
+        const result = await db.query(
+            'INSERT INTO users(username, favorite_city, email) VALUES($1, $2, $3) RETURNING *',
+            [newUser.username, newUser.favorite_city, newUser.email],
+        );
+        console.log(result.rows[0]);
+        res.json(result.rows[0]);
+
+    } catch (e) {
+        console.log(e);
+        return res.status(400).json({ e });
+    }
+
+});
 
 // // delete request for students
 // app.delete('/api/students/:studentId', async (req, res) => {
