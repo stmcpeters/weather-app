@@ -73,18 +73,18 @@ app.post('/api/users', async (req, res) => {
 
 });
 
-// // DELETE a user
-// app.delete('/api/users/:userid', async (req, res) => {
-//     try {
-//         const userid = req.params.userid;
-//         await db.query('DELETE FROM users WHERE id=$1', [users]);
-//         console.log(`${userid} has been deleted`, userid);
-//         res.status(200).end();
-//     } catch (e) {
-//         console.log(e);
-//         return res.status(400).json({ e });
-//     }
-// });
+// DELETE a user
+app.delete('/api/users/:userid', async (req, res) => {
+    try {
+        const userid = req.params.userid;
+        await db.query('DELETE FROM users WHERE userid=$1', [userid]);
+        console.log(`user with the userid: ${userid} has been deleted`);
+        res.status(200).end();
+    } catch (e) {
+        console.log(e);
+        return res.status(400).json({ e });
+    }
+});
 
 // PUT request - Update a user 
 app.put('/api/users/:userid', async (req, res) =>{
