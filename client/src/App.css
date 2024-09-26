@@ -120,7 +120,7 @@ button {
 }
 button:hover {
   border-color: white;
-  background-color: white;
+  background-color: lightblue;
   color: white;
 }
 
