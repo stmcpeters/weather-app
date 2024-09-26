@@ -69,8 +69,6 @@ function Weather() {
 
   return (
     <div>
-      {/* title above input box and submit button */}
-        <h1>Weather App</h1>
         <form onSubmit={handleSubmit}>
           {/* creates text box for user to input city name */}
             <input 
