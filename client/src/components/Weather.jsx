@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 // applies CSS styling to page
 import '/Users/beigeh0ney/Desktop/Techtonica/Techtonica-assignments/new-weather-app/client/src/App.css'
+import Card from 'react-bootstrap/Card'
 
 function Weather() {
   // sets initial state of city to be updated
@@ -85,7 +86,9 @@ function Weather() {
         </form>
         {/* ternary operator to display either fetched weather data or loading message */}
         {weatherData ? (
-          <>
+          <Card>
+            <Card.Body>
+            <Card.Title>
             {/* displays weather data name from API */}
               <h2>
                 {/* displays weather icon depending on the weather description */}
@@ -106,7 +109,9 @@ function Weather() {
               <p>Pressure: {weatherData.main.pressure} hPa</p>
             {/* displays wind speed from API */}
               <p>Wind Speed: {weatherData.wind.speed} mph</p>
-          </>
+              </Card.Title>
+            </Card.Body>
+          </Card>
         ) : (
           // loading message to display when fetching data from API
             <p>Fetching weather...</p>
