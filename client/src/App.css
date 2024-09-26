@@ -57,9 +57,15 @@ button.btn.btn-primary {
 }
   }*/
 
+.card{
+  max-width: 50%;
+  margin: 10px;
+}
+
 .card-body {
   margin-left: 2em;
   margin-right: 2em;
+  text-align: center;
 }
 
 
