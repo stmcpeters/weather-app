@@ -52,6 +52,7 @@ app.get('/api/users', async (req, res) => {
 // POST request create new user
 app.post('/api/users', async (req, res) => {
     try {
+            // creating new user object
         const newUser = {
             username: req.body.username,
             favorite_city: req.body.favorite_city,
@@ -72,41 +73,40 @@ app.post('/api/users', async (req, res) => {
 
 });
 
-// // delete request for students
-// app.delete('/api/students/:studentId', async (req, res) => {
+// // DELETE a user
+// app.delete('/api/users/:userid', async (req, res) => {
 //     try {
-//         const studentId = req.params.studentId;
-//         await db.query('DELETE FROM students WHERE id=$1', [studentId]);
-//         console.log("From the delete request-url", studentId);
+//         const userid = req.params.userid;
+//         await db.query('DELETE FROM users WHERE id=$1', [users]);
+//         console.log(`${userid} has been deleted`, userid);
 //         res.status(200).end();
 //     } catch (e) {
 //         console.log(e);
 //         return res.status(400).json({ e });
-
 //     }
 // });
 
-// //A put request - Update a student 
-// app.put('/api/students/:studentId', async (req, res) =>{
-//     //console.log(req.params);
-//     //This will be the id that I want to find in the DB - the student to be updated
-//     const studentId = req.params.studentId
-//     const updatedStudent = { id: req.body.id, firstname: req.body.firstname, lastname: req.body.lastname, iscurrent: req.body.is_current}
-//     console.log("In the server from the url - the student id", studentId);
-//     console.log("In the server, from the react - the student to be edited", updatedStudent);
-//     // UPDATE students SET lastname = "something" WHERE id="16";
-//     const query = `UPDATE students SET firstname=$1, lastname=$2, is_current=$3 WHERE id=${studentId} RETURNING *`;
-//     const values = [updatedStudent.firstname, updatedStudent.lastname, updatedStudent.iscurrent];
-//     try {
-//       const updated = await db.query(query, values);
-//       console.log(updated.rows[0]);
-//       res.send(updated.rows[0]);
+// PUT request - Update a user 
+app.put('/api/users/:userid', async (req, res) =>{
+    //console.log(req.params);
+    // the user to be updated
+    const userid = req.params.userid
+    const updatedUser = { username: req.body.username, favorite_city: req.body.favorite_city, email: req.body.email}
+    console.log("In the server from the url - the user id", userid);
+    console.log("In the server, from the react - the user to be edited", updatedUser);
+    // UPDATE user SET email = "something" WHERE id="3";
+    const query = `UPDATE users SET username=$1, favorite_city=$2, email=$3 WHERE userid=${userid} RETURNING *`;
+    const values = [updatedUser.username, updatedUser.favorite_city, updatedUser.email];
+    try {
+      const updated = await db.query(query, values);
+      console.log(updated.rows[0]);
+      res.send(updated.rows[0]);
   
-//     }catch(e){
-//       console.log(e);
-//       return res.status(400).json({e})
-//     }
-//   })
+    }catch(e){
+      console.log(e);
+      return res.status(400).json({e})
+    }
+  })
 
 // console.log that your server is up and running
 app.listen(PORT, () => {
