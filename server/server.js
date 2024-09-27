@@ -49,6 +49,21 @@ app.get('/api/users', async (req, res) => {
     }
 });
 
+  // GET request to retrieve all specified user's info from database
+  app.get('/api/users/:username', async (req, res) => {
+    try {
+      // initializes username you're searching for
+      const { username } = req.params;
+      // query to search for users matching given username
+      const result = await db.query('SELECT * FROM users WHERE username = $1', [username]);
+      // return user data as JSON
+      // rows[0] returns only the first matching value --- what if there's duplicate names?!
+      res.json(result.rows[0]);
+    } catch (error) {
+      console.error('Error fetching user data matching that input: ', error);
+    }
+  })
+
 // POST request create new user
 app.post('/api/users', async (req, res) => {
     try {
