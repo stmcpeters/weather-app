@@ -1,10 +1,36 @@
   
   
   // set favorite city
-  const SetFavoriteCity = () => {
+  const SetFavoriteCity = ({ user }) => {
     // sets initial state of user selection
     const [selectedUser, setSelectedUser] = useState(null);
   
+
+//   //function to update/set favorite city
+//   const putUser = (toEditUser) => {
+//     return fetch(`http://localhost:8080/api/users/${toEditUser.userid}`, {
+//         method: "PUT",
+//         headers: { "Content-Type": "application/json" },
+//         body: JSON.stringify(toEditUser),
+//     })
+//         .then((response) => {
+//             return response.json();
+//         })
+//         .then((data) => {
+//             onUpdateUser(data);
+//             //this line just for cleaning the form
+//             clearForm();
+//         });
+// };
+
+
+
+
+
+
+
+
+
       // handles what to do when submit button is clicked => user selected
       const handleSubmit = (event) => {
       // prevents default submission behaviors like refreshing/redirecting page
