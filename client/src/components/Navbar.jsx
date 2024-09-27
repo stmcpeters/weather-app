@@ -3,7 +3,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Logo from '../assets/logo.png'
 
 
-function MyNavBar(props) {
+function MyNavBar({ user }) {
 
   return (
     <>
@@ -17,6 +17,9 @@ function MyNavBar(props) {
               alt="Weather App Logo"
             />
         </a>
+        <Navbar.Text>
+          Signed in as: <a href="#">{user.username}</a>
+        </Navbar.Text>
       </Container>
     </Navbar>
     </>

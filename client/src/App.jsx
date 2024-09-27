@@ -9,8 +9,9 @@ import React, { useState } from 'react';
 
 function App() {
   const [user, setUser] = useState({
-    username: "",
-    favorite_city: "",
+    //  default user info
+    username: "Guest",
+    favorite_city: "San Francisco",
     email: ""
   })
 
