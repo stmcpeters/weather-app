@@ -1,50 +1,133 @@
-import { Form } from 'react-bootstrap'
+import { Form, Button, Card } from 'react-bootstrap'
 import React, { useState } from 'react'
-import Dropdown from './Dropdown';
 
-  // button to set favorite city
-const SetFavoriteCity = () => {
-  const [selectedUser, setSelectedUser] = useState(null);
+const UserForm = ({ onSaveUser, editingUser, onUpdateUser }) => {
 
-    // handles what to do when submit button is clicked
-    const handleSubmit = (event) => {
-    // prevents default submission behaviors like refreshing/redirecting page
-    event.preventDefault();
-    if(selectedUser) {
-    // runs fetchWeather() that gets data from API
-      fetchWeather();
+  // initial state of form 
+  const [user, setUser] = useState(editingUser || {
+      username: "",
+      favorite_city: "",
+      email: ""
+  });
+
+  //create functions that handle the event of the user typing into the form
+  const handleUsernameChange = (event) => {
+      const username = event.target.value;
+      setUser((user) => ({ ...user, username }));
+  };
+
+  const handleFavoriteCityChange = (event) => {
+      const favorite_city = event.target.value;
+      setUser((user) => ({ ...user, favorite_city }));
+  };
+
+  const handleEmailChange = (event) => {
+      const email = event.target.value;
+      setUser((user) => ({ ...user, email }));
+  };
+
+  const clearForm = () => {
+      setUser({ username: "", favorite_city: "", email: "" })
+  }
+
+  //A function to handle the post request -- creating new user
+  const postUser = (newUser) => {
+      return fetch("http://localhost:8080/api/users", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(newUser),
+      })
+          .then((response) => {
+              return response.json();
+          })
+          .then((data) => {
+              //console.log("From the post ", data);
+              //I'm sending data to the List of Students (the parent) for updating the list
+              onSaveUser(data);
+              //this line just for cleaning the form
+              clearForm();
+          });
+  };
+
+  //A function to handle the post request
+  const putUser = (toEditUser) => {
+      return fetch(`http://localhost:8080/api/users/${toEditUser.userid}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(toEditUser),
+      })
+          .then((response) => {
+              return response.json();
+          })
+          .then((data) => {
+              onUpdateUser(data);
+              //this line just for cleaning the form
+              clearForm();
+          });
+  };
+
+
+  //A function to handle the submit in both cases - Post and Put request!
+  const handleSubmit = (e) => {
+      e.preventDefault();
+      if (user.userid) {
+          putUser(user);
       } else {
-      alert('Please select a user!')
+          postUser(user);
       }
-    }
+  };
 
-    // fetches weather data from backend using selected user's favorite city
-    const fetchWeather = async () => {
-      try {
-        // uses backend port to connect to API and uses inputted city name
-          const response = await fetch(`http://localhost:8080/weather?city=${selectedUser.favorite_city}`);
-        // waits for response and parses to json format
-          const data = await response.json();
-        // updates state of weather data using data from API
-          setWeatherData(data);
-        // catches and handles errors fetching data from API
-        } catch (error) {
-          console.error("Error fetching user's favorite city weather data: ", error);
-      }
-    }
 
   return (
-    <div>
-        <div>
-          <Dropdown onSelect={(value) => setSelectedUser(value)} />
-          {selectedUser && (
-            <Form onSubmit={handleSubmit}>
-
-            </Form>
-          )}
-        </div>
+    <div className='display-form'>
+        <Card>
+            <Card.Body>
+            <Card.Title>
+                <h3>Create a New User</h3>
+                <Form onSubmit={handleSubmit}>
+                <Form.Group>
+                <Form.Label>User Name</Form.Label>
+                    <input
+                type="text"
+                id="add-user-name"
+                placeholder="User Name"
+                required
+                value={user.username}
+                onChange={handleUsernameChange}
+            />
+        </Form.Group>
+        <Form.Group>
+            <Form.Label>Favorite City</Form.Label>
+            <input
+                type="text"
+                id="add-favorite-city"
+                placeholder="Favorite City"
+                required
+                value={user.favorite_city}
+                onChange={handleFavoriteCityChange}
+            />
+        </Form.Group>
+        <Form.Group>
+            <Form.Label>Email</Form.Label>
+            <input
+                type="text"
+                id="add-email"
+                placeholder="Email"
+                required
+                value={user.email}
+                onChange={handleEmailChange}
+            />
+        </Form.Group>
+        <Form.Group>
+        <Button type="submit" variant="outline-success">{user.id ? "Edit User" : "Add User"}</Button>
+        {user.id ? <Button type="button" variant="outline-warning" onClick={clearForm}>Cancel</Button> : null}
+        </Form.Group>
+        </Form>
+            </Card.Title>
+            </Card.Body>
+        </Card>
     </div>
   )
 }
 
-export default SetFavoriteCity
+export default UserForm

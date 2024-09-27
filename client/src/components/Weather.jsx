@@ -68,7 +68,7 @@ function Weather() {
   }
 
   return (
-    <div>
+    <div className='display-weather'>
         <form onSubmit={handleSubmit}>
           {/* creates text box for user to input city name */}
             <input 
