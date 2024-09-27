@@ -3,6 +3,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import MyNavBar from './components/Navbar'
 import Weather from './components/Weather';
 import UserForm from './components/UserForm';
+import ListUsers from './components/ListUsers';
+// import SetFavoriteCity from './components/SetFavoriteCity';
 import React, { useState } from 'react';
 
 function App() {
@@ -12,16 +14,18 @@ function App() {
     email: ""
   })
 
-  const onSaveUser = partialUser => {
-    setUser(partialUser);
-    alert(`Welcome! You're signed in as ${partialUser.username}`)
+  const onSaveUser = user => {
+    setUser(user);
+    alert(`Welcome! You're signed in as ${user.username}`)
   }
 
   return (
     <div className="App">
-      <MyNavBar />
+      <MyNavBar user={user} />
+      <ListUsers />
+      {/* <SetFavoriteCity user={user} /> */}
       <UserForm onSaveUser={onSaveUser} />
-      <Weather />
+      <Weather user= {user} />
     </div>
   )
 }
