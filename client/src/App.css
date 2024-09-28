@@ -62,6 +62,14 @@ ul {
   margin: 10px;
 }
 
+.select-users {
+  display: inline;
+  float: right;
+  position: absolute;
+  left: 1070px;
+  text-align: right;
+}
+
 .card-body {
   margin-left: 2em;
   margin-right: 2em;
@@ -72,7 +80,7 @@ ul {
 .display-form {
   /* max-width: 50%; */
   float: right;
-  margin: auto;
+  /* margin: auto; */
   min-width: 50%;
   margin-top: 80px;
 }
