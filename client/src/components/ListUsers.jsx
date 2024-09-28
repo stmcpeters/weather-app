@@ -59,14 +59,13 @@ const ListUsers = () => {
 
     return (
         <div className="mybody">
-        <div className="list-users">
-            <h2>Current Users</h2>
-            <ul>
-                {user.map((user) => {
-                    return <li key={user.userid}> <User user={user} toDelete={onDelete} toUpdate={onUpdate} /></li>
-                })}
-            </ul>
-        </div>
+            <div className="select-users">            <h3>Active Users</h3>
+                <select>
+                    {user.map((user) => {
+                        return <option key={user.userid}> <User user={user} toDelete={onDelete} toUpdate={onUpdate} /></option>
+                    })}
+                </select>
+            </div>
         </div>
     );
 }
