@@ -82,6 +82,7 @@ function Weather() {
             />
         {/* creates button to submit city name */}
           <button type="submit">Get Weather</button>
+          <button type="button">Set Favorite City</button>
         </form>
         {/* ternary operator to display either fetched weather data or loading message */}
         {weatherData ? (
