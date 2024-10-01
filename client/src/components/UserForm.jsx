@@ -110,7 +110,7 @@ const UserForm = ({ onSaveUser, editingUser, onUpdateUser }) => {
         <Form.Group>
             <Form.Label>Email</Form.Label>
             <input
-                type="text"
+                type="email"
                 id="add-email"
                 placeholder="Email"
                 required
