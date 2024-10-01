@@ -4,29 +4,47 @@ import MyNavBar from './components/Navbar'
 import Weather from './components/Weather';
 import UserForm from './components/UserForm';
 import ListUsers from './components/ListUsers';
-// import SetFavoriteCity from './components/SetFavoriteCity';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 function App() {
-  const [user, setUser] = useState({
-    //  default user info
-    username: "Guest",
-    favorite_city: "San Francisco",
-    email: ""
-  })
+  const [users, setUsers] = useState([]);
+  const [selectedUser, setSelectedUser] = useState(null);
 
-  const onSaveUser = user => {
-    setUser(user);
-    alert(`Welcome! You're signed in as ${user.username}`)
-  }
+  const fetchUsers = async () => {
+    try {
+      const response = await fetch('http://localhost:8080/api/users');
+      const data = await response.json();
+      setUsers(data);
+    } catch (error) {
+      console.error('Error fetching users:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
+  const handleUserSelect = (user) => {
+    setSelectedUser(user);
+  };
+
+  const onUpdateUser = (updatedUser) => {
+    // Handle user update logic here
+    console.log('Updating user:', updatedUser);
+  };
+
+  // displays message to user that they're signed in successfully
+  // const onSaveUser = user => {
+  //   setUser(user);
+  //   alert(`Welcome! You're signed in as ${user.username}`)
+  // }
 
   return (
     <div className="App">
-      <MyNavBar user={user} />
-      <ListUsers />
-      {/* <SetFavoriteCity user={user} /> */}
-      <UserForm onSaveUser={onSaveUser} />
-      <Weather user= {user} />
+      <MyNavBar />
+      <ListUsers users={users} onSelect={handleUserSelect} onUpdate={onUpdateUser} />
+      <UserForm users={selectedUser} onSaveUser={fetchUsers} />
+      <Weather user={selectedUser} />
     </div>
   )
 }

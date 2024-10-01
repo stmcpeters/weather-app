@@ -5,11 +5,20 @@ import '/Users/beigeh0ney/Desktop/Techtonica/Techtonica-assignments/new-weather-
 // imports card css from bootstrap
 import Card from 'react-bootstrap/Card'
 
-function Weather() {
+const Weather = ({ user }) => {
   // sets initial state of city to be updated
     const [city, setCity] = useState('');
   // sets initial state of weather data to be updated
     const [weatherData, setWeatherData] = useState(null);
+
+
+  useEffect(() => {
+    if(user && user.favorite_city) {
+      setCity(user.favorite_city);
+      fetchWeather();
+    }
+  }, [user]);
+
 
   // starts initial data fetch from API on page load
     useEffect(() => {

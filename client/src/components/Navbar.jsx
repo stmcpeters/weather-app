@@ -3,7 +3,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Logo from '../assets/logo.png'
 
 
-function MyNavBar({ user }) {
+function MyNavBar() {
 
   return (
     <>
@@ -18,7 +18,7 @@ function MyNavBar({ user }) {
             />
         </a>
         <Navbar.Text>
-          Signed in as: <a href="#">{user.username}</a>
+          Signed in as: <a href="#"></a>
         </Navbar.Text>
       </Container>
     </Navbar>
