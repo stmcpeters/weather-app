@@ -18,7 +18,7 @@ function MyNavBar() {
             />
         </a>
         <Navbar.Text>
-          Signed in as: <a href="#"></a>
+          {/* Signed in as: <a href="#">{selectedUser}</a> */}
         </Navbar.Text>
       </Container>
     </Navbar>

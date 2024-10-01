@@ -34,10 +34,10 @@ function App() {
   };
 
   // displays message to user that they're signed in successfully
-  // const onSaveUser = user => {
-  //   setUser(user);
-  //   alert(`Welcome! You're signed in as ${user.username}`)
-  // }
+  const createUser = user => {
+    setUsers(user);
+    alert(`Welcome! You're signed in as ${user.username}`)
+  }
 
   return (
     <div className="App">
